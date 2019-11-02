@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar';
 import MovieList from './MovieList';
+import MyList from './MyList';
 
 class App extends Component {
   state = {
@@ -26,6 +27,13 @@ class App extends Component {
         id: '4',
       },
     ],
+    myList: [
+      {
+        name: 'initial movie',
+        actor: 'a martinez',
+        id: '444',
+      },
+    ],
   };
 
   onClickMovieHandler = () => {
@@ -45,6 +53,10 @@ class App extends Component {
         <SearchBar />
         <MovieList
           movieList={this.state.movieList}
+          onClickMovieHandler={this.onClickMovieHandler}
+        />
+        <MyList
+          myList={this.state.myList}
           onClickMovieHandler={this.onClickMovieHandler}
         />
       </>
