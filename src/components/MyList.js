@@ -1,19 +1,16 @@
 import React from 'react';
 import Movie from './Movie';
 
-const MovieList = (props) => {
+const MyList = (props) => {
   return (
     <>
-      <h1>MOVIE LIST</h1>
+      <h1>MY PRIVATE LIST</h1>
       <ul>
-        {props.movieList.map((movie) => {
-          const movieInMyList = props.checkIfMovieIsInMyList(movie.imdbID);
-          const type = movieInMyList ? 'movieListAdded' : 'movieList';
-
+        {props.myList.map((movie) => {
           return (
             <li key={movie.imdbID}>
               <Movie
-                type={type}
+                type="myList"
                 movie={movie}
                 onClickMovieHandler={props.onClickMovieHandler}
               />
@@ -25,4 +22,4 @@ const MovieList = (props) => {
   );
 };
 
-export default MovieList;
+export default MyList;

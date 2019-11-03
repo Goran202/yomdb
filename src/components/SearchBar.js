@@ -1,12 +1,19 @@
 import React from 'react';
 
-const SearchBar = () => {
+const SearchBar = (props) => {
   //   return <div>SearchBar</div>;
   return (
     <div>
-      <label htmlFor="movie-input">Unesi ime filma: </label>
-      <input id="movie-input"></input>
-      <button>Search</button>
+      <form onSubmit={(e) => props.onClickSearchBarHandler(e)}>
+        <label htmlFor="movie-input">Unesi ime filma: </label>
+        <input
+          type="text"
+          id="movie-input"
+          value={props.stateValue}
+          onChange={(e) => props.handleSearchBarChange(e)}
+        ></input>
+        <button>Search</button>
+      </form>
     </div>
   );
 };
