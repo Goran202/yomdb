@@ -6,35 +6,35 @@ import openMovieDatabase from '../apis/openMovieDatabase';
 
 class App extends Component {
   state = {
-    value: 'man',
+    value: 'tree',
     movieList: [
-      {
-        name: 'topgun1',
-        actor: 'cruise1',
-        id: '1',
-      },
-      {
-        name: 'topgun2',
-        actor: 'cruise2',
-        id: '2',
-      },
-      {
-        name: 'topgun3',
-        actor: 'cruise3',
-        id: '3',
-      },
-      {
-        name: 'topgun4',
-        actor: 'cruise4',
-        id: '4',
-      },
+      // {
+      //   name: 'topgun1',
+      //   actor: 'cruise1',
+      //   id: '1',
+      // },
+      // {
+      //   name: 'topgun2',
+      //   actor: 'cruise2',
+      //   id: '2',
+      // },
+      // {
+      //   name: 'topgun3',
+      //   actor: 'cruise3',
+      //   id: '3',
+      // },
+      // {
+      //   name: 'topgun4',
+      //   actor: 'cruise4',
+      //   id: '4',
+      // },
     ],
     myList: [
-      {
-        name: 'initial movie',
-        actor: 'a martinez',
-        imdbID: '444',
-      },
+      // {
+      //   name: 'initial movie',
+      //   actor: 'a martinez',
+      //   imdbID: '444',
+      // },
     ],
   };
 
@@ -51,18 +51,28 @@ class App extends Component {
   //     });
   // }
 
+  componentDidMount() {
+    const local = localStorage.getItem('myListLocal');
+    const localJSON = JSON.parse(local);
+    this.setState({
+      myList: localJSON,
+    });
+  }
+
   addMovieHandler = (movie) => {
     const myList = this.state.myList;
     myList.push(movie);
-    this.setState({ myList: myList });
-    localStorage.setItem('myListLocal', this.state.value);
+    this.setState({ myList: myList }, () => {
+      localStorage.setItem('myListLocal', JSON.stringify(myList));
+    });
   };
 
   removeMovieHandler = (movie) => {
     let myList = this.state.myList;
     myList = myList.filter((movie_arg) => movie_arg.imdbID !== movie.imdbID);
-    this.setState({ myList: myList });
-    localStorage.setItem('myListLocal', this.state.value);
+    this.setState({ myList: myList }, () => {
+      localStorage.setItem('myListLocal', JSON.stringify(myList));
+    });
   };
 
   onClickMovieHandler = (movie, type) => {

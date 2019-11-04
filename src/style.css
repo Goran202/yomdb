@@ -3,3 +3,13 @@
   align-content: center;
   border: 2px solid;
 }
+
+.movie-detail {
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+
+button {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}

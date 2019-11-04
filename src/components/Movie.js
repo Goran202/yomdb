@@ -23,9 +23,9 @@ const Movie = (props) => {
 
   return (
     <div className="movie-container">
-      <h4>Title: {props.movie.Title}</h4>
-      <p>Year: {props.movie.Year}</p>
-      <p>imdbID: {props.movie.imdbID}</p>
+      <h4 className="movie-detail">Title: {props.movie.Title}</h4>
+      <p className="movie-detail">Year: {props.movie.Year}</p>
+      <p className="movie-detail">imdbID: {props.movie.imdbID}</p>
       {renderButton(props.type)}
     </div>
   );
