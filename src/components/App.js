@@ -3,65 +3,37 @@ import SearchBar from './SearchBar';
 import MovieList from './MovieList';
 import MyList from './MyList';
 import openMovieDatabase from '../apis/openMovieDatabase';
+import apikey from '../apis/apikey';
 
 class App extends Component {
   state = {
     value: 'tree',
-    movieList: [
-      // {
-      //   name: 'topgun1',
-      //   actor: 'cruise1',
-      //   id: '1',
-      // },
-      // {
-      //   name: 'topgun2',
-      //   actor: 'cruise2',
-      //   id: '2',
-      // },
-      // {
-      //   name: 'topgun3',
-      //   actor: 'cruise3',
-      //   id: '3',
-      // },
-      // {
-      //   name: 'topgun4',
-      //   actor: 'cruise4',
-      //   id: '4',
-      // },
-    ],
-    myList: [
-      // {
-      //   name: 'initial movie',
-      //   actor: 'a martinez',
-      //   imdbID: '444',
-      // },
-    ],
+    movieList: [],
+    myList: [],
   };
-
-  // componentDidMount() {
-  //   const phrase = '?apikey=320de091' + '&s=' + 'superman';
-  //   const response = openMovieDatabase
-  //     .get(phrase)
-  //     .then((response) => {
-  //       console.log(response);
-  //       this.setState({ movieList: response.data.Search });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
 
   componentDidMount() {
     const local = localStorage.getItem('myListLocal');
-    const localJSON = JSON.parse(local);
-    this.setState({
-      myList: localJSON,
-    });
+    if (local) {
+      const localJSON = JSON.parse(local);
+      this.setState({
+        myList: localJSON,
+      });
+    }
   }
 
   addMovieHandler = (movie) => {
+    movie.timeAdded = new Date();
+    movie.watched = false;
     const myList = this.state.myList;
     myList.push(movie);
+    this.setState({ myList: myList }, () => {
+      localStorage.setItem('myListLocal', JSON.stringify(myList));
+    });
+  };
+
+  updateMovieHandler = () => {
+    const myList = this.state.myList;
     this.setState({ myList: myList }, () => {
       localStorage.setItem('myListLocal', JSON.stringify(myList));
     });
@@ -95,11 +67,9 @@ class App extends Component {
 
   onClickSearchBarHandler = (e) => {
     e.preventDefault();
-    console.log(this.state.value);
-
-    //const phrase = '?=' + '&s=' + 'batman';
-    const phrase = '?=' + '&s=' + this.state.value;
-    const response = openMovieDatabase
+    const phrase = '?apikey=' + apikey + '&s=' + this.state.value;
+    console.log(apikey);
+    openMovieDatabase
       .get(phrase)
       .then((response) => {
         console.log(response);
@@ -113,6 +83,15 @@ class App extends Component {
   handleSearchBarChange = (e) => {
     e.preventDefault();
     this.setState({ value: e.target.value });
+  };
+
+  onCheckBoxChangeHandler = (imdbID_arg) => {
+    let helperState = { ...this.state };
+    helperState.myList.find(
+      (movie) => movie.imdbID === imdbID_arg
+    ).watched = !helperState.myList.find((movie) => movie.imdbID === imdbID_arg).watched;
+    this.setState(helperState);
+    this.updateMovieHandler();
   };
 
   render() {
@@ -131,6 +110,7 @@ class App extends Component {
         <MyList
           myList={this.state.myList}
           onClickMovieHandler={this.onClickMovieHandler}
+          onCheckBoxChangeHandler={this.onCheckBoxChangeHandler}
         />
       </>
     );

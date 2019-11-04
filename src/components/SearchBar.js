@@ -1,7 +1,6 @@
 import React from 'react';
 
 const SearchBar = (props) => {
-  //   return <div>SearchBar</div>;
   return (
     <div>
       <form onSubmit={(e) => props.onClickSearchBarHandler(e)}>
