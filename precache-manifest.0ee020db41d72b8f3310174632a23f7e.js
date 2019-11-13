@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c73269d4d05e5a6ad6218c02e08735f7",
+    "revision": "990fff4c2e137cafc3ff8d1af291edfc",
     "url": "/yomdb/index.html"
   },
   {

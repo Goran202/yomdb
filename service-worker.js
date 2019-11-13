@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/yomdb/precache-manifest.f4e7ab04907a3c7689fed8de31cf4bbc.js"
+  "/yomdb/precache-manifest.0ee020db41d72b8f3310174632a23f7e.js"
 );
 
 self.addEventListener('message', (event) => {
